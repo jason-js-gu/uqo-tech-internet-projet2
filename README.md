@@ -7,7 +7,8 @@
 
 ### AJAX (1 person)
 
-### APIs (getLetters, peers, postLetter) (2 persons)   
+### APIs (getLetters, peers, postLetter) (2 persons) 
+
 ===========================
 
 # uqo-tech-internet-projet2
