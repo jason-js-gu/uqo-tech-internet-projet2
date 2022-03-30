@@ -1,13 +1,20 @@
 # Suggestion for the distribution of tasks
-### documentation (1 person)
+### documentation (2 persons)
+- documention of functionalities
+- documentation of architecture
+- diagram of architecture
 
-### architecture of the project (1 person)
-
-### html file (1 person)
+### html and AJAX (1 person)
+- index.html
+- css
 
 ### AJAX (1 person)
+- cipher and decipher
+- ajax requests
 
 ### APIs (getLetters, peers, postLetter) (2 persons) 
+- getLetters, peers
+- postLetters
 
 ---
 
