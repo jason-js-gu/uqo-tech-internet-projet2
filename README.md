@@ -3,7 +3,7 @@
 
 ### architecture of the project (1 person)
 
-### html file (1 persons)
+### html file (1 person)
 
 ### AJAX (1 person)
 
