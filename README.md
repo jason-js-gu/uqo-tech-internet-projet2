@@ -1,16 +1,13 @@
 # Suggestion for the distribution of tasks
-## documentation (1 person)
+### documentation (1 person)
 
-## architecture of the project (1 person)
+### architecture of the project (1 person)
 
-## html file (1 persons)
+### html file (1 persons)
 
-## AJAX (1 person)
+### AJAX (1 person)
 
-## APIs (getLetters, peers, postLetter) (2 persons)
-
-
-
+### APIs (getLetters, peers, postLetter) (2 persons)   
 ===========================
 
 # uqo-tech-internet-projet2
