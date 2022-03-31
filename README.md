@@ -4,7 +4,7 @@
 - documentation of architecture
 - diagram of architecture
 
-### html and AJAX (1 person)
+### html (1 person)
 - index.html
 - css
 
@@ -12,9 +12,9 @@
 - cipher and decipher
 - ajax requests
 
-### APIs (getLetters, peers, postLetter) (2 persons) 
+### APIs (getLetters, peers, addLetter) (2 persons) 
 - getLetters, peers
-- postLetters
+- addLetter
 
 ---
 
