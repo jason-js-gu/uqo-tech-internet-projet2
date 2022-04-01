@@ -7,7 +7,37 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>test</h1>
-    <h2><a href="/getLetters"></a>get letters</h2>
+    <h1>P2P courriel system</h1>   
+        <select id="public-address">
+            <option>select an receiver (public key)</option>
+            <option>public key1</option>
+            <option>public key2</option>
+        </select><br><br>
+        <textarea id="message" rows="10" placeholder="Enter your message"></textarea><br><br>
+        <input type="submit" id="btn-submit" onclick="add()" />    
+    <div id="test"></div>
+    <button onclick="getLetters()">Get Letters</button>
+    <div id="messages"></div>
+    <script>
+        var headers = {
+            "Content-Type": "application/json"
+            }
+        var add=()=>{
+            fetch("http://localhost:8000/addLetter",{
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({'test':'testdata'})           
+        }).then(res=>res.text())
+            .then(text=>document.querySelector('#test').innerHTML=text)
+            .catch(err=>document.querySelector('#test').innerHTML=err);
+    };
+
+    var getLetters=()=>{
+        fetch("http://localhost:8000/getLetters")
+        .then(res=>res.text())
+        .then(text=>document.querySelector("#messages").innerHTML=text)
+        .catch(err=>document.querySelector('#test').innerHTML=err);
+    }
+    </script>
 </body>
 </html>

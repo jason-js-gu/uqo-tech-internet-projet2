@@ -19,19 +19,30 @@ const port = process.env.PORT || "8000";
  app.engine('html', require('ejs').renderFile);
  app.set('view engine', 'html');
  app.use(express.static(__dirname + '/public'));
- 
+ app.use(bodyparser.json());
+
 /**
  * Routes Definitions
  */
+
+var messages={
+    "public key1":"lfalkjeljfadk",
+}
+
 
 app.get("/", (req, res) => {
     res.render('index.html',{title: "Projet2"});
 });
 
+app.post("/addLetter", (req, res) => {
+    var rst = req.body;    
+    messages[Object.keys(rst)[0]]=rst[Object.keys(rst)[0]];
+    res.send("Message sent");
+});
+
 app.get("/getLetters", (req, res) => {
     res.setHeader('content-type', 'application/json');
-    
-    res.render('index.html',{title: "Projet2"});
+    res.send(messages);    
 });
 
 
