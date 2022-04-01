@@ -42,8 +42,9 @@ app.post("/addLetter", (req, res) => {
 
 app.get("/getLetters", (req, res) => {
     res.setHeader('content-type', 'application/json');
-    res.send(messages);    
+    res.json(messages);    
 });
+
 
 
 /**
