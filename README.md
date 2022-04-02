@@ -4,11 +4,11 @@
 - documentation of architecture
 - diagram of architecture
 
-### html (1 person)
+### html (2 persons)
 - index.html
 - css
 
-### AJAX (1 person)
+### AJAX (2 person)
 - cipher and decipher
 - ajax requests
 
