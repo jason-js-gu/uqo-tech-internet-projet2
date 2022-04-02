@@ -8,7 +8,7 @@
 - index.html
 - css
 
-### AJAX (2 person)
+### AJAX (2 persons)
 - cipher and decipher
 - ajax requests
 
