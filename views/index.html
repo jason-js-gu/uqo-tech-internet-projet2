@@ -4,24 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Technologie Internet - Projet2</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/forge.min.js"></script>
+    <style>
+        .decrypte{            
+            display:none;
+            margin-left: 20px;
+        }
+
+       
+        .item:hover .decrypte{
+            cursor: pointer;
+            display:inline-block;
+            background-color:red;
+            color:white;             
+        }
+
+    </style>
 </head>
 <body>
     <h1>P2P courriel system</h1>   
-        <select id="public-address">
-            <option>select an receiver (public key)</option>
-            <option>public key1</option>
-            <option>public key2</option>
-        </select><br><br>
+        <textarea id="publicAddress" rows="10" placeholder="Paste the public key here"></textarea><br><br>
         <textarea id="message" rows="10" placeholder="Enter your message"></textarea><br><br>
-        <input type="submit" id="btn-submit" onclick="add()" />    
+        <input type="submit" id="btn-submit" onclick="add()" /> <br>   
     <div id="test"></div>
-    <button onclick="getLetters()">Get Letters</button>
+    <button onclick="getLetters()">Get Letters</button><br>
     <div id="messages"></div>
+    <button onclick="peers()">Get Peers</button>
+    <div id="peersList"></div>
     <script>
+        localStorage.setItem('privateKeyPem','-----BEGIN RSA PRIVATE KEY-----\r\nMIICWwIBAAKBgQCqEi6bdiKHyeKLgTNdhrwC1AwM29Z4OLc4SlInrPT7ysQc/OXC\r\nqoCnbWiqJoUYBX5jr2fg9of5hncsIlO6xAONXmIQfZkGiM53z2eVC8EidVCQ1E/8\r\nUz9xwoCKjHAGY1RQUuGrX+Q7WjUkSHNqbsA/M9iM032KF7WipH+aZ4zt5QIDAQAB\r\nAoGAaUaIA0PFbDjUO3bmzOYyS63nJ66NvC2ffQDEijrOC28gprEFqNLSgNGBEJJ3\r\noL8F1b8mlmMFGLjb3D4DhoD/kOhmhvOTUaIkfEe0lYv/AxA3jeXp6Jbr01WzCtR+\r\nCoLqXA2Vz40UVgbjrwU9p1UtjdYv/9n/3ionG+SEcU+CUaECQQDZkFns/4LJ882f\r\nZP8Eb5vKAFxVBkfmJenZTkSGCi1c/XLTGsJOs+GnoGEiR4pWW/zT1bqKc4YlhvBk\r\nYG+OsLovAkEAyB3lc04cRWdSHlXmi6gPYeTwtt7+LULcw3H628jZ+lgVVXXaQeFs\r\n9je8LTWj5slOuETqjhoRaYqwXBZYthrYKwJAEmhlQ2km/sFTD35zGUP8MW4wYb1D\r\nThS9IXa+03x+9BQ5p+TmtdQAbrdiII1fBgmIbb/ypY46tmghZMzIA5GuXwJAeQWr\r\nh+oLKuXrQbFNddQzSU69TLrbGOBAxmod/eEgAkhWzpIxZno//T+DrAuujZnc44+6\r\nEiotsZhQQ8C38ZmWdQJAHTqELK6kH0/pypFosKTRl3Na+04WwGMZOOjsPW67874J\r\nLB3wGXw5gNth/GzTOvBkmcmLh3WGRxNwIzH3/+sOUQ==\r\n-----END RSA PRIVATE KEY-----\r\n');
+        
         var headers = {
             "Content-Type": "application/json"
             }
+          
+        var pkPem = document.getElementById('publicAddress').value;
+        var message = document.getElementById('message').value; 
+        // var publicKey = forge.pki.publicKeyFromPem(pkPem);       
+        // var encryptedMsg = forge.util.encode64(publicKey.encrypt(forge.util.encodeUtf8(message)));
+        //var decryptedMsg = forge.util.decodeUtf8(keyPair.privateKey.decrypt(forge.util.decode64(encryptedMsg)));
+
+        
+      
         var add=()=>{
             fetch("http://localhost:8000/addLetter",{
             method: "POST",
@@ -30,14 +56,39 @@
         }).then(res=>res.text())
             .then(text=>document.querySelector('#test').innerHTML=text)
             .catch(err=>document.querySelector('#test').innerHTML=err);
-    };
+        };
 
-    var getLetters=()=>{
-        fetch("http://localhost:8000/getLetters")
-        .then(res=>res.text())
-        .then(text=>document.querySelector("#messages").innerHTML=text)
-        .catch(err=>document.querySelector('#test').innerHTML=err);
-    }
+        var getLetters=()=>{
+            fetch("http://localhost:8000/getLetters")
+            .then(res=>res.text())
+            .then(text=>document.querySelector('#messages').innerHTML=json2html(text))
+            .catch(err=>document.querySelector('#messages').innerHTML=err); 
+        };
+
+        var peers=()=>{
+            var rst=localStorage.getItem('peers');
+            if(rst==='null'){
+                fetch("http://localhost:8000/peers")
+                .then(res=>res.text())
+                .then(text=>localStorage.setItem('peers',text))
+                .then(()=>localStorage.getItem('peers'))
+                .then(r=>document.querySelector('#peersList').innerHTML=json2html(r))
+                .catch(err=>document.querySelector('#messages').innerHTML=err); 
+            }else{
+                document.querySelector('#peersList').innerHTML=json2html(rst);
+            }
+        };
+
+        var json2html=(text)=>{
+            var str='<ul>';
+            text=JSON.parse(text)
+            var keys=Object.keys(text);        
+            keys.forEach(element => {
+                str+='<li class="item">'+text[element]+'</li>';
+            });
+            str+='</ul>'
+            return str;
+        }
     </script>
 </body>
 </html>

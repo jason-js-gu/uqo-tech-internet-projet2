@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>projet1-courriel | Technologie Internet - UQO | Jinsheng Gu</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400&&family=Roboto:500" rel="stylesheet">
+    <link rel="stylesheet" href="/css/courriel.css">
+    <script src="/js/forge.min.js"></script>
+
+</head>
+<body onload="getMessages()">
+    <div class="body-wrapper container">
+        <header class="header">
+            <div class="symbol"></div>       
+        </header>
+        <main>
+            <div class="message-wrapper">
+                <div class="title">
+                    <h1>Pair-à-Pair Messagerie Système</h1>
+                    <p>C'est un système de messagerie qui est sécurisé. <br>Tous vos messages seront envoyés cryptés et de la façon Pair-à-Pair.</p>
+                </div>
+                <div class="message-box">
+                    <div class="message-content">
+                        <div class="col-nav">
+                            <div class="logo"></div>
+                            <div class="new-message" title="Composer un nouveau message" onclick="addMessage()"><span class="nav-text">Nouveau Message</span></div>
+                            <div id="all-messages" title="Liste des messages" class="bg-messages item item-active" onclick="getMessages()"><span class="nav-text">Boîte de messages</span></div>
+                            <div id="all-addresses" title="Liste des adresses" class="bg-addresses item" onclick="getAddresses()"><span class="nav-text">Carnet d'adresses</span></div>                            
+                        </div>
+                        <div class="col-content">                            
+                            <!-- block massages -->
+                            <div id="messages-list">
+                                <div class="search">                                    
+                                    <div class="search-img-wrap">
+                                        <input id='messages-search' type="text" placeholder="Rechercher dans les messages">
+                                        <span><img src="img/search.png" alt="search" width="25" onclick="searchMessages()"></span>
+                                    </div>
+                                </div>                            
+                                <div class="paginator">                                    
+                                    <div class="col-left">
+                                        <input type="checkbox" id="check-all-msg" onclick="toggleAllMsg()">
+                                        <div>
+                                        <div id="del-msg" class="action-wrap sub-visibility" onclick="delMessage()"><img src="img/delete.png" width="15" height="15" class="action" alt="Supprimer" title="Supprimer" /><span class="nav-text">Supprimer</span></div>
+                                        <div id="mod-msg" class="action-wrap sub-visibility" onclick="modMessage()"><img src="img/modify.png" width="15" height="15" class="action" alt="Modifier" title="Modifier" /><span class="nav-text">Modifier</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-right">
+                                        <span id="messages-counter"></span> messages<span class="nav-text"> au total</span>
+                                    </div>                                    
+                                </div>
+                                <div class="content-items-wrapper">
+                                    <div id="messages-items"></div>
+                                </div>
+                            </div>
+                            <!-- block addresses -->
+                            <div id="addresses-list" class="visibility">
+                                <div class="search">
+                                    <div class="search-img-wrap">
+                                        <input id='addresses-search' type="text" placeholder="Rechercher dans les addresses">
+                                        <span><img src="img/search.png" alt="search" width="25" onclick="searchAddresses()"></span>
+                                    </div>
+                                </div>
+                                <div class="paginator">
+                                    <div class="col-left">
+                                        <input type="checkbox" id="check-all-ads" onclick="toggleAllAds()">
+                                        <div>
+                                        <div id="add-ads" class="action-wrap" onclick="addAdsInterface()"><img src="img/new.png" width="15" height="15" class="action" alt="Ajouter" title="Ajouter" /><span class="nav-text">Ajouter</span></div>
+                                        <div id="del-ads" class="action-wrap sub-visibility" onclick="delAddress()"><img src="img/delete.png" width="15" height="15" class="action" alt="Supprimer" title="Supprimer" /><span class="nav-text">Supprimer</span></div> 
+                                        <div id="mod-ads" class="action-wrap sub-visibility" onclick="modAddress()"><img src="img/modify.png" width="15" height="15" class="action" alt="Modifier" title="Modifier" /><span class="nav-text">Modifier</span></div>                                       
+                                        </div>
+                                    </div>
+                                    <div class="col-right"><span id="addresses-counter"></span> adresses <span class="nav-text">au total</span></div>
+                                </div>
+                                <div class="content-items-wrapper">
+                                    <div id="addresses-items"></div>
+                                </div>
+                            </div>
+                            <!-- block add or modify address -->
+                            <div id="action-address" class="visibility">                                
+                                <div class="new-message-wrapper">                                    
+                                    <img src="img/manage-multiple-assests.png" alt=""> 
+                                    <input type="hidden" id="ads-id" value="" /> 
+                                    <input type="text" id="owner" name="ower" placeholder="À qui" />
+                                    <textarea name="address-input" id="address-content" rows="15" placeholder="Address"></textarea>
+                                    <p class="left"><button id="btn-address" onclick="addAddress()">ajouter</button><p>
+                                    <p class="left"><button id="btn-mod-address" onclick="saveModAddress()" class="visibility">modifier</button></p>
+                                </div>
+                            </div>
+
+                            <!-- block new massage -->
+                            <div id="new-message" class="visibility">                                
+                                <div class="new-message-wrapper">                                    
+                                    <img src="img/manage-multiple-assests.png" alt=""> 
+                                    <input type="hidden" id="msg-id" value="" />                                       
+                                    <select id="dropdown-addresses"></select>
+                                    <textarea name="message-input" id="message" rows="15" placeholder="Message"></textarea>
+                                    <p class="left"><button id="btn-message" onclick="sendMessage()">envoyer</button><p>
+                                    <p class="left"><button id="btn-mod-message" onclick="saveModMessage()" class="visibility">modifier</button></p>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="bubble1"></div>
+                    <div class="bubble2"></div>
+                    <div class="bubble3"></div>
+                    <div class="bubble4"></div>
+                </div>
+            </div>
+            <div id="remark">
+                <div class="remark-row">
+                    <div class="remark-col">
+                        <h4>Responsive</h4>
+                        <p>One-page application qui peut s'adapter sur toutes les plates-formes</p>
+                    </div>
+                    <div class="remark-col">
+                        <h4>Mini Gmail</h4>
+                        <p>L'interface graphique et les fonctionalité sont similaires avec le Gmail</p>
+                    </div>
+                    <div class="remark-col">
+                        <h4>JavaScript Pur</h4>
+                        <p>Toutes les actions et interactions sont réalisées par JavaScript with CSS.</p>
+                    </div>
+                </div>
+            </div>            
+        </main>
+
+        <footer>
+            <div class="footer-info">
+                <div class="copyright">
+                    <p>Template de: https://demos.onepagelove.com/html/ava/</p>
+                </div>
+                <div class="author">
+                    <p>Projet de Technologie Internet | UQO</p>
+                    <p>Jinsheng Gu | 2022.02</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="/js/courriel.js"></script>
+</body>
+</html>
