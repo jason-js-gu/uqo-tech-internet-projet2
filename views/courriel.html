@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>projet1-courriel | Technologie Internet - UQO | Jinsheng Gu</title>
+    <title>{projet2} | Technologies Internet - UQO | Groupe F</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400&&family=Roboto:500" rel="stylesheet">
     <link rel="stylesheet" href="/css/courriel.css">
     <script src="/js/forge.min.js"></script>
 
 </head>
-<body onload="getMessages()">
+<body onload="getLetters()">
     <div class="body-wrapper container">
         <header class="header">
             <div class="symbol"></div>       
@@ -25,9 +25,9 @@
                     <div class="message-content">
                         <div class="col-nav">
                             <div class="logo"></div>
-                            <div class="new-message" title="Composer un nouveau message" onclick="addMessage()"><span class="nav-text">Nouveau Message</span></div>
-                            <div id="all-messages" title="Liste des messages" class="bg-messages item item-active" onclick="getMessages()"><span class="nav-text">Boîte de messages</span></div>
-                            <div id="all-addresses" title="Liste des adresses" class="bg-addresses item" onclick="getAddresses()"><span class="nav-text">Carnet d'adresses</span></div>                            
+                            <div class="new-message" title="Composer un nouveau message" onclick="initMsgAddress()"><span class="nav-text">Nouveau Message</span></div>
+                            <div id="all-messages" title="Liste des messages" class="bg-messages item item-active" onclick="getLetters()"><span class="nav-text">Boîte de messages</span></div>
+                            <div id="all-addresses" title="Liste des adresses" class="bg-addresses item" onclick="getPubKeys()"><span class="nav-text">Carnet d'adresses</span></div>                            
                         </div>
                         <div class="col-content">                            
                             <!-- block massages -->
@@ -40,11 +40,7 @@
                                 </div>                            
                                 <div class="paginator">                                    
                                     <div class="col-left">
-                                        <input type="checkbox" id="check-all-msg" onclick="toggleAllMsg()">
-                                        <div>
-                                        <div id="del-msg" class="action-wrap sub-visibility" onclick="delMessage()"><img src="img/delete.png" width="15" height="15" class="action" alt="Supprimer" title="Supprimer" /><span class="nav-text">Supprimer</span></div>
-                                        <div id="mod-msg" class="action-wrap sub-visibility" onclick="modMessage()"><img src="img/modify.png" width="15" height="15" class="action" alt="Modifier" title="Modifier" /><span class="nav-text">Modifier</span></div>
-                                        </div>
+                                        <img src="img/symbol1.png" width="15"><span>Résultat</span>
                                     </div>
                                     <div class="col-right">
                                         <span id="messages-counter"></span> messages<span class="nav-text"> au total</span>
@@ -64,12 +60,7 @@
                                 </div>
                                 <div class="paginator">
                                     <div class="col-left">
-                                        <input type="checkbox" id="check-all-ads" onclick="toggleAllAds()">
-                                        <div>
-                                        <div id="add-ads" class="action-wrap" onclick="addAdsInterface()"><img src="img/new.png" width="15" height="15" class="action" alt="Ajouter" title="Ajouter" /><span class="nav-text">Ajouter</span></div>
-                                        <div id="del-ads" class="action-wrap sub-visibility" onclick="delAddress()"><img src="img/delete.png" width="15" height="15" class="action" alt="Supprimer" title="Supprimer" /><span class="nav-text">Supprimer</span></div> 
-                                        <div id="mod-ads" class="action-wrap sub-visibility" onclick="modAddress()"><img src="img/modify.png" width="15" height="15" class="action" alt="Modifier" title="Modifier" /><span class="nav-text">Modifier</span></div>                                       
-                                        </div>
+                                        <img src="img/symbol1.png" width="15"><span>Résultat</span>
                                     </div>
                                     <div class="col-right"><span id="addresses-counter"></span> adresses <span class="nav-text">au total</span></div>
                                 </div>
@@ -77,15 +68,13 @@
                                     <div id="addresses-items"></div>
                                 </div>
                             </div>
-                            <!-- block add or modify address -->
+                            <!-- block decrypt message -->
                             <div id="action-address" class="visibility">                                
                                 <div class="new-message-wrapper">                                    
-                                    <img src="img/manage-multiple-assests.png" alt=""> 
-                                    <input type="hidden" id="ads-id" value="" /> 
-                                    <input type="text" id="owner" name="ower" placeholder="À qui" />
-                                    <textarea name="address-input" id="address-content" rows="15" placeholder="Address"></textarea>
-                                    <p class="left"><button id="btn-address" onclick="addAddress()">ajouter</button><p>
-                                    <p class="left"><button id="btn-mod-address" onclick="saveModAddress()" class="visibility">modifier</button></p>
+                                    <img src="img/manage-multiple-assests.png" alt="">                                     
+                                    <textarea name="msg-encrypted" id="msg-encrypted" rows="6" placeholder="Message encrypté"></textarea>
+                                    <textarea name="msg-plain" id="msg-plain" rows="6" placeholder="Message plain ou d'erreur"></textarea>
+                                    <p class="left"><button id="btn-address" onclick="getLetters()">Retourner</button><p>                                    
                                 </div>
                             </div>
 
@@ -94,9 +83,9 @@
                                 <div class="new-message-wrapper">                                    
                                     <img src="img/manage-multiple-assests.png" alt=""> 
                                     <input type="hidden" id="msg-id" value="" />                                       
-                                    <select id="dropdown-addresses"></select>
+                                    <select title="Liste des adresses" id="dropdown-addresses"></select>
                                     <textarea name="message-input" id="message" rows="15" placeholder="Message"></textarea>
-                                    <p class="left"><button id="btn-message" onclick="sendMessage()">envoyer</button><p>
+                                    <p class="left"><button id="btn-message" onclick="add()">envoyer</button><p>
                                     <p class="left"><button id="btn-mod-message" onclick="saveModMessage()" class="visibility">modifier</button></p>
                                     
                                 </div>
@@ -134,8 +123,8 @@
                     <p>Template de: https://demos.onepagelove.com/html/ava/</p>
                 </div>
                 <div class="author">
-                    <p>Projet de Technologie Internet | UQO</p>
-                    <p>Jinsheng Gu | 2022.02</p>
+                    <p>Projet de Technologies Internet | UQO</p>
+                    <p>Groupe F | 2022.04</p>
                 </div>
             </div>
         </footer>

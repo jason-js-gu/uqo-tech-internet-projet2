@@ -4,11 +4,11 @@
 - documentation of architecture
 - diagram of architecture
 
-### html (1 person)
+### html (2 persons)
 - index.html
 - css
 
-### AJAX (1 person)
+### AJAX (2 persons)
 - cipher and decipher
 - ajax requests
 
@@ -39,9 +39,9 @@ Go to the branch *'main'* of uqo-tech-internet-projet2, in the input field *'Fin
 - in terminal, create a new local branch and connect to remote branch with the command: ***git checkout -b [local branch name you want to create] origin/[your remote branch name]***
 
 ## push your local files to Github
-- ***git add .*** (don't forget the point)
-- ***git commit -m "[name your commit]"***
-- ***git push***
+- `git add .` (don't forget the point)
+- `git commit -m "[name your commit]"`
+- `git push`
 
 ## other operations of Git
-- git pull origin [your remote branch name]  (to get the files from your remote branch)
+- `git pull origin [your remote branch name]`  (to get the files from your remote branch)
