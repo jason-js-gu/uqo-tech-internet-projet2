@@ -68,14 +68,14 @@ app.listen(port, () => {
  * Communication between servers
  */
 //synchronize the list of servers
-// setInterval(()=>get(`${Object.values(peers)[0]}/peers`,(err,newPeers)=>{
-//     if(err) return console.error(err);
-//     newPeers.forEach(newPeer=>peers[newPeer]=newPeer);
-// }),30000);
+setInterval(()=>get(`${Object.values(peers)[0]}/peers`,(err,newPeers)=>{
+    if(err) return console.error(err);
+    newPeers.forEach(newPeer=>peers[newPeer]=newPeer);
+}),30000);
 
 
 //synchronize the list of messages
-// setInterval(()=>get(`${Object.values(peers)[0]}/getLetters`,(err,newMsgs)=>{
-//     if(err) return console.error(err);
-//     newMsgs.forEach(newMsg=>messages[newMsg]=newMsg);
-// }),30000);
+setInterval(()=>get(`${Object.values(peers)[0]}/getLetters`,(err,newMsgs)=>{
+    if(err) return console.error(err);
+    newMsgs.forEach(newMsg=>messages[newMsg]=newMsg);
+}),30000);
