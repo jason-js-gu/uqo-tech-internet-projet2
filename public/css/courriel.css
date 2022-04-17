@@ -382,6 +382,13 @@ button:hover{
     padding-left: 1.8rem;
 }
 
+#action-address p{
+    width: 100%;
+    padding-left: 1.5rem;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
 .action-wrap{
     display: inline-flex;
     align-items: center;

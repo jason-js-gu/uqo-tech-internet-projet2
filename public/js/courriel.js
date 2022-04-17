@@ -105,11 +105,11 @@ var decrypt=(e)=>{
         swithStateOfDivs([addressesDiv,newMessageDiv,messagesDiv],actionAddressDiv);
         try{
             decryptedMsg = forge.util.decodeUtf8(privateKey.decrypt(forge.util.decode64(encryptedMsg)));
-            document.getElementById('msg-encrypted').value='Message encrypté:\n\n'+encryptedMsg;
-            document.getElementById('msg-plain').value='Message décrypté:\n\n'+decryptedMsg;
+            document.getElementById('msg-encrypted').value=encryptedMsg;
+            document.getElementById('msg-plain').value=decryptedMsg;
         }catch(err){
-            document.getElementById('msg-encrypted').value='Message encrypté:\n\n'+encryptedMsg;
-            document.getElementById('msg-plain').value="Message d'erreur:\n\n"+err+" Ou vous n'êtes pas le destinataire.";
+            document.getElementById('msg-encrypted').value=encryptedMsg;
+            document.getElementById('msg-plain').value=err+" Ou vous n'êtes pas le destinataire.";
         }
     }    
 };
