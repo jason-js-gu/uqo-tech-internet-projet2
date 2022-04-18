@@ -4,6 +4,7 @@
 const express = require("express");
 const path = require("path");
 const bodyparser = require('body-parser');
+const fs = require("fs");
 //get request from the server to another server
 var get=require("http-get-json");
 //const { get } = require("express/lib/response");
@@ -21,7 +22,7 @@ var peers = {
     'http://localhost:5000':'http://localhost:5000',
 }
 
-//messages
+//messages, save messages temporarily
 var messages={};
 
 /**
@@ -39,20 +40,26 @@ var messages={};
 
 //responde to the get request from the client
 app.get("/", (req, res) => {
-    res.render('courriel.html',{title: "Projet2"});
+    res.render('courriel.html',{});
 });
 
 //responde to the post request from the client
 app.post("/addLetter", (req, res) => {
     var msg = req.body.msg; 
     messages[msg]=msg;
+    fs.writeFile("messages.json",JSON.stringify(messages),(err)=>console.error(err));
     res.json("Message sent");
 });
 
 
 app.get("/getLetters", (req, res) => {
     //res.setHeader('content-type', 'application/json');
-    res.json(Object.values(messages));    
+    var msgs={};
+    msgs=fs.readFileSync("messages.json");
+    if(msgs!={}){
+        msgs=JSON.parse(msgs);
+    }
+    res.json(Object.values(msgs));    
 });
 
 
@@ -77,5 +84,9 @@ setInterval(()=>get(`${Object.values(peers)[0]}/peers`,(err,newPeers)=>{
 //synchronize the list of messages
 setInterval(()=>get(`${Object.values(peers)[0]}/getLetters`,(err,newMsgs)=>{
     if(err) return console.error(err);
-    newMsgs.forEach(newMsg=>messages[newMsg]=newMsg);
+    //newMsgs.forEach(newMsg=>messages[newMsg]=newMsg);
+    newMsgs.forEach(newMsg=>{
+        messages[newMsg]=newMsg;
+        fs.writeFile("message.json",JSON.stringify(messages),(err)=>console.error(err));
+    });
 }),30000);
