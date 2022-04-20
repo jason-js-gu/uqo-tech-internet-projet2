@@ -47,18 +47,32 @@ app.get("/", (req, res) => {
 app.post("/addLetter", (req, res) => {
     var msg = req.body.msg; 
     messages[msg]=msg;
-    fs.writeFile("messages.json",JSON.stringify(messages),(err)=>console.error(err));
+    //if file exists, read file then append the new message
+    if(fs.existsSync("messages.json")){
+        var msgs=fs.readFileSync("messages.json");
+        if(msgs){
+            msgs=JSON.parse(msgs);
+        }
+        msgs[msg]=msg;
+        fs.writeFile("messages.json",JSON.stringify(msgs),(err)=>console.error(err));
+    }else{ 
+        //if file doesn't exist, create a new file to save the messages       
+        fs.writeFile("messages.json",JSON.stringify(messages),(err)=>console.error(err));
+    }
+    
     res.json("Message sent");
 });
 
 
 app.get("/getLetters", (req, res) => {
     //res.setHeader('content-type', 'application/json');
-    var msgs={};
-    msgs=fs.readFileSync("messages.json");
-    if(msgs!={}){
-        msgs=JSON.parse(msgs);
-    }
+    var msgs={};    
+    if(fs.existsSync("messages.json")){
+        var msgs=fs.readFileSync("messages.json");
+        if(msgs){
+            msgs=JSON.parse(msgs);
+        }
+    } 
     res.json(Object.values(msgs));    
 });
 
@@ -85,8 +99,17 @@ setInterval(()=>get(`${Object.values(peers)[0]}/peers`,(err,newPeers)=>{
 setInterval(()=>get(`${Object.values(peers)[0]}/getLetters`,(err,newMsgs)=>{
     if(err) return console.error(err);
     //newMsgs.forEach(newMsg=>messages[newMsg]=newMsg);
-    newMsgs.forEach(newMsg=>{
-        messages[newMsg]=newMsg;
-        fs.writeFile("message.json",JSON.stringify(messages),(err)=>console.error(err));
+    newMsgs.forEach(newMsg=>{        
+        if(fs.existsSync("messages.json")){
+            var msgs=fs.readFileSync("messages.json");
+            if(msgs){
+                msgs=JSON.parse(msgs);
+            }
+            msgs[newMsg]=newMsg;
+            fs.writeFile("message.json",JSON.stringify(msgs),(err)=>console.error(err));
+        }else{
+            messages[newMsg]=newMsg;
+            fs.writeFile("message.json",JSON.stringify(messages),(err)=>console.error(err));
+        }        
     });
 }),30000);
