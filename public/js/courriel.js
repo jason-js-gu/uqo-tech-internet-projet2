@@ -6,6 +6,8 @@ var messagesItems=document.getElementById('messages-items');
 var actionAddressDiv=document.getElementById('action-address');
 var addressesItems=document.getElementById('addresses-items');
 var msgAddress = document.getElementById('dropdown-addresses');
+var messagesCounter = document.getElementById('messages-counter');
+var addressesCounter = document.getElementById('addresses-counter');
 
 //function to get encrypt and decrypt key pairs
 var getKeyPair = () => {    
@@ -81,7 +83,7 @@ var getLetters=()=>{
     .then(res=>res.text())
     .then(text=>{
         document.querySelector("#messages-items").innerHTML=json2Html(text)['htmlStr'];
-        document.getElementById('messages-counter').innerText=json2Html(text)['itemNum'];
+        messagesCounter.innerText=json2Html(text)['itemNum'];
         msgs=json2Html(text)['msgs'];
     })
     .then(()=>addDecryptAction())
@@ -119,7 +121,7 @@ var getPubKeys=()=>{
     swithStateOfDivs([actionAddressDiv,newMessageDiv,messagesDiv],addressesDiv);
     var addresses = localStorage.getItem('addresses');
     addressesItems.innerHTML=json2Html(addresses)['htmlStr'];
-    document.getElementById('addresses-counter').innerText=json2Html(addresses)['itemNum'];
+    addressesCounter.innerText=json2Html(addresses)['itemNum'];
 };
 
 
