@@ -10,7 +10,7 @@
      3.3 [Traiter les erreurs](#traiter-les-erreurs)  
      3.4 [Décrypter un message](#décrypter-un-message)  
      3.5 [Afficher tous les messages](#afficher-tous-les-messages)  
-     3.6 [Afficher tous les adresses](#afficher-tous-les-adresses)  
+     3.6 [Afficher toutes les adresses](#afficher-toutes-les-adresses)  
      3.7 [Afficher tous les adresses](#afficher-tous-les-adresses)  
      3.8 [Renvoyer la liste des messages](#renvoyer-la-liste-des-messages)  
      3.9 [Revoir un messages](#recevoir-un-messages)  
