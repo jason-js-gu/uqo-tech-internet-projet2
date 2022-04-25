@@ -25,7 +25,8 @@ Ce projet est un travail de session du groupe F qui est composé par les membres
 - Jinsheng Gu
 - Konan Kouame Wilfried Patrick
 - Mohamed Bouh
-- Pape Doudou Gassama
+- Pape Doudou Gassama. 
+
 Ce projet est une application web monopage (Single Page Application, SPA) qui permet à l'utilisateur de mettre à jour le contenu de la page sans charger les autres pages.  
 
 
@@ -121,8 +122,8 @@ On choisi le framework Node.js avec la librairie Express.js à créer le serveur
 - `setInterval(()=>get(url,(err,newPeers)=>{},30000);` --- sychroniser le serveur avec les autre pairs et mettre à jour la liste des pairs
 - `setInterval(()=>get(url,(err,newMsgs)=>{},30000);` --- sychroniser le serveur avec les autre pairs et mettre à jour la liste des messages
 
-## 5. Execution
+## 5. Exécution
 - télécharger le fichier zip du projet via [ce lien](https://github.com/jason-js-gu/uqo-tech-internet-projet2) ou utiliser les commandes de `GIT` de le télécharger
 - dans `VS Code` ouvrir le projet et ouvrir un terminale, installer les librairies avec la commande `npm install`
-- acitver le serveur avec la commande `node index.js`
+- activer le serveur avec la commande `node index.js`
 - cliquer sur le lien qui contient le mot clé `localhost`
