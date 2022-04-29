@@ -122,7 +122,7 @@ On choisi le framework Node.js avec la librairie Express.js à créer le serveur
 - `setInterval(()=>get(url,(err,newPeers)=>{},30000);` --- sychroniser le serveur avec les autre pairs et mettre à jour la liste des pairs
 - `setInterval(()=>get(url,(err,newMsgs)=>{},30000);` --- sychroniser le serveur avec les autre pairs et mettre à jour la liste des messages
 
-## 5. Exécution
+## 5. Execution
 - télécharger le fichier zip du projet via [ce lien](https://github.com/jason-js-gu/uqo-tech-internet-projet2) ou utiliser les commandes de `GIT` de le télécharger
 - dans `VS Code` ouvrir le projet et ouvrir un terminale, installer les librairies avec la commande `npm install`
 - activer le serveur avec la commande `node index.js`
